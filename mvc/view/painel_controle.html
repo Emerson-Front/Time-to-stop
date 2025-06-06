@@ -1,0 +1,132 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Configuração - Time to Stop</h1>
+
+    <section id="section-config">
+
+        <div class="div-lista">
+            <ul>
+                <!-- Lista dinâmica -->
+            </ul>
+        </div>
+
+        <div class="div-adicionar">
+            <input id="input-adicionar" type="number" placeholder="Digite o tempo em segundos">
+            <button id="btn-adicionar">Adicionar</button>
+        </div>
+
+        <button id="btn-resetar">Resetar padrão</button>
+
+    </section>
+
+    <div class="form-check form-switch" id="check">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+        <label class="form-check-label">Iniciar com o computador</label>
+    </div>
+
+
+</body>
+
+<script>
+
+    // Criar a lista <li></li>
+    window.addEventListener('pywebviewready', async () => {
+        const lista = await window.pywebview.api.get_tempo();
+
+        for (let i = 0; i < lista.length; i++) {
+            let tempo = lista[i][0];
+            let texto = lista[i][1];
+            let id = i;
+            console.log(tempo);
+
+
+            let li = document.createElement('li');
+            li.setAttribute('data-ordem', tempo);
+            li.innerHTML = `${texto} <span class="deletar" id="deletar_${id}">❌</span>`;
+            document.querySelector('ul').appendChild(li);
+
+
+            let btn_delete = document.getElementById('deletar_' + id);
+            btn_delete.addEventListener('click', function () {
+                window.pywebview.api.deletar_tempo(id);
+                location.reload();
+            });
+        }
+
+        // Ordenar a lista
+        const ul = document.querySelector('ul');
+        const lis = Array.from(ul.querySelectorAll('li')); // pega todos os li numa array
+        lis.sort((b, a) => {
+            return Number(a.dataset.ordem) - Number(b.dataset.ordem);
+        });
+        ul.innerHTML = '';
+        lis.forEach(li => ul.appendChild(li));
+
+    });
+
+
+
+    // Checagem do checkbox
+    window.addEventListener('pywebviewready', async () => {
+        const check = await window.pywebview.api.iniciar_com_sistema();
+        elemento = document.getElementById("switchCheckDefault");
+        if (check == true) {
+            elemento.checked = true;
+        } else {
+            elemento.checked = false;
+        }
+    });
+
+    const check = document.getElementById('switchCheckDefault');
+    check.addEventListener('change', function () {
+        if (check.checked) {
+            window.pywebview.api.criar_atalho_startup(true);
+        } else {
+            window.pywebview.api.criar_atalho_startup(false);
+        }
+    });
+
+
+
+    const btn_adicionar = document.getElementById('btn-adicionar');
+    const input_adicionar = document.getElementById('input-adicionar');
+    const btn_resetar = document.getElementById('btn-resetar');
+
+
+    input_adicionar.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            let segundos = document.getElementById('input-adicionar').value;
+
+            if (!regras_de_tempo(segundos)) return
+
+            window.pywebview.api.adicionar_tempo(parseInt(segundos));
+            location.reload();
+        }
+    });
+
+    btn_adicionar.addEventListener('click', function () {
+        let segundos = document.getElementById('input-adicionar').value;
+
+        if (!regras_de_tempo(segundos)) return
+
+        window.pywebview.api.adicionar_tempo(parseInt(segundos));
+        location.reload();
+
+    });
+
+    function regras_de_tempo(segundos) {
+        if (segundos >= 1 && segundos <= 360000) return true;
+        return false;
+    }
+
+    btn_resetar.addEventListener('click', function () {
+        window.pywebview.api.resetar_padrao();
+        location.reload();
+    });
+
+
+</script>

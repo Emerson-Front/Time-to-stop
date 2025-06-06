@@ -1,0 +1,8 @@
+include
+lib
+Scripts
+pyvenv.cfg
+__pycache__
+teste
+build
+dist

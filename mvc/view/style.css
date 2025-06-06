@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Alumni Sans SC", sans-serif;
+}
+
+
+body {
+    background: rgb(138, 160, 138);
+}
+
+h1 {
+    font-weight: 200;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+#section-config {
+    font-size: 25px;
+    text-align: center;
+    margin: 50px auto;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background: rgb(196, 219, 196);
+    width: 500px;
+}
+
+.div-lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    list-style: none;
+}
+
+.deletar {
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#input-adicionar {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 220px;
+}
+
+button {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    transition: 300ms;
+}
+
+button:hover {
+    cursor: pointer;
+    scale: 1.1;
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.form-check {
+    text-align: center;
+    font-size: 25px;
+}
+#switchCheckDefault:hover {
+    cursor: pointer;
+}
