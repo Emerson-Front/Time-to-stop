@@ -7,6 +7,7 @@
 ## 🎯 Objetivo
 
 Oferecer uma solução simples e funcional para usuários que desejam agendar o desligamento automático do computador de forma prática, sem a necessidade de comandos manuais ou ferramentas complexas.
+
 ---
 
 ## 🚀 Funcionalidades
